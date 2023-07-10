@@ -1,0 +1,19 @@
+#intution
+traverse the vector if current price is less than previous buying price the buy it, it it is greater then sell and track max profit.
+
+//solution
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int profit = 0;
+        int buyStock = INT_MAX;
+        for(auto it: prices){
+            if(it<buyStock){
+                buyStock = it;
+            } else if(it>buyStock){
+                profit = max(profit, it - buyStock);
+            }
+        }
+        return profit;
+    }
+};

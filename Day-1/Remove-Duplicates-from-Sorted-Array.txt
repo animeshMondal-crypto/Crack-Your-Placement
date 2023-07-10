@@ -1,0 +1,18 @@
+#intution
+since the array is sorted we know where the duplicates are.. one pointer will take care of the current index and the other one wiil traverse and modify the array
+
+//solution
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        int n = nums.size();
+        int cur = 0;
+
+        for(int j = 1; j<n; j++){
+            if(nums[j] != nums[cur]){
+                nums[++cur] = nums[j];
+            }
+        }
+        return cur+1;
+    }
+};
