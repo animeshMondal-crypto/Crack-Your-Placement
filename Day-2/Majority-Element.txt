@@ -1,0 +1,28 @@
+#intution
+sort the array
+assume the first element as majority element..
+traverse it.. if adjacent elements are similer to majority then increase count if not then decrease count.. if at any moment count is 0 then take the current element as majority element
+
+//solution
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        //voting algorithm
+        sort(nums.begin(), nums.end());
+        int element = -1;
+        int count = 0;
+
+        for(int i = 0; i<nums.size(); i++){
+            if(count == 0){
+                element = nums[i];
+                count++;
+            } else{
+                if(nums[i] == element)
+                    count++;
+                else
+                    count--;
+            }
+        }
+        return element;
+    }
+};

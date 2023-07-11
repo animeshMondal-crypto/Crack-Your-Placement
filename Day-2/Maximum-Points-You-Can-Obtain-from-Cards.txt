@@ -1,0 +1,26 @@
+#intution
+Keep a window of size n - k over the array. The answer is max(answer, total_pts - sumOfCurrentWindow)
+
+//solutiom
+class Solution {
+public:
+    int maxScore(vector<int>& cardPoints, int k) {
+        int n = cardPoints.size();
+        int totalPoints = 0;
+        int windowSize = n-k;
+        int windowSum = 0;
+        for(int i = 0; i<n; i++){
+            totalPoints+=cardPoints[i];
+            if(i<windowSize)
+                windowSum+=cardPoints[i];
+        }
+
+        int ans = totalPoints-windowSum;
+        for(int i = windowSize; i<n; i++){
+            windowSum = windowSum + cardPoints[i] - cardPoints[i-windowSize];
+            ans = max(ans, totalPoints-windowSum);
+        }
+
+        return ans;
+    }
+};
