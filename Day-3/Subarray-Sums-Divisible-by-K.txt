@@ -1,0 +1,30 @@
+#intution
+idea is to calaulate prefix sum and their modulo.. calculate prefixsum and on the way calculate their modulo.. and store it in map.. if the modulo is already present then add previous modulo count in count then increment it in map.. for negative modulo add k to it and store it in map. initially store 0 in map with count 1..
+//dry run
+nums -> [4,5,0,-2,-3,1]   k -> 5
+pSum -> [4,,9,9,7,4,5]
+rem  -> [4,4,4,2,4,0]
+if we observe where remainders are same sum of i-1 to j is divisible by k (i - prev reminder, j current remainder)
+
+//solution
+class Solution {
+public:
+    int subarraysDivByK(vector<int>& nums, int k) {
+        unordered_map<int, int> mp;
+        mp[0] = 1;
+        int prefixSum = 0;
+        int count = 0;
+
+        for(auto it: nums){
+            prefixSum+=it;
+            int modulo = prefixSum%k;
+            modulo = modulo<0 ? modulo+k : modulo;
+            if(mp.find(modulo) != mp.end()){
+                count+=mp[modulo]++;
+            }else{
+                mp[modulo]++;
+            }
+        }
+        return count;
+    }
+};

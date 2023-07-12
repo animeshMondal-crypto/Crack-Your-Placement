@@ -1,0 +1,38 @@
+#intution
+We go boundary by boundary and move inwards. That is the essential operation. First row, last column, last row, first column, and then we move inwards by 1 and repeat. That's all. That is all the simulation that we need.
+
+//solution
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        int m = matrix.size(), n = matrix[0].size();
+        int total = m*n;
+        int r_s = 0, r_e = m-1, c_s = 0, c_e = n-1;
+        int count = 0;
+        vector<int> ans;
+
+        while(count<total){
+            for(int i = c_s; i<=c_e && count<total; i++){
+                ans.push_back(matrix[r_s][i]);
+                count++;
+            }
+            r_s++;
+            for(int i = r_s; i<=r_e && count<total; i++){
+                ans.push_back(matrix[i][c_e]);
+                count++;
+            }
+            c_e--;
+            for(int i = c_e; i>=c_s && count<total; i--){
+                ans.push_back(matrix[r_e][i]);
+                count++;
+            }
+            r_e--;
+            for(int i = r_e; i>=r_s && count<total; i--){
+                ans.push_back(matrix[i][c_s]);
+                count++;
+            }
+            c_s++;
+        }
+        return ans;
+    }
+};

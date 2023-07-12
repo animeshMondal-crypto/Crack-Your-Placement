@@ -1,0 +1,23 @@
+#intution
+When you encounter a closing bracket, check if the top of the stack was the opening for it. If yes, pop it from the stack. Otherwise, return false.
+
+//solution
+class Solution {
+public:
+    bool isValid(string s) {
+        stack<char> st;
+        for(auto ch: s){
+            if(ch == '(' || ch == '{' || ch == '[')
+                st.push(ch);
+            else{
+                if(st.empty()) return false;
+                char c = st.top();
+                st.pop();
+                if(ch == ')' && c != '(' || ch == '}' && c != '{' || ch == ']' && c != '['){
+                    return false;
+                }
+            }
+        }
+        return st.empty();
+    }
+};

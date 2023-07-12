@@ -1,0 +1,23 @@
+#intution
+calculate the prefix sum at each time of calculating find sum-k if it occured previously.. if it is then increase count by mp[sum-k] and add the sum to map.. initially take mp[0] = 1... similer question subarray sum dividible by k... 
+
+//solution
+class Solution {
+public:
+    int subarraySum(vector<int>& nums, int k) {
+        unordered_map<int, int> mp;
+        mp[0] = 1;
+        int sum = 0;
+        int count = 0;
+        for(auto it: nums){
+            sum+=it;
+            int diff = sum-k;
+
+            if(mp.find(diff) != mp.end()){
+                count+=mp[diff];
+            }
+            mp[sum]++;
+        }
+        return count;
+    }
+};
