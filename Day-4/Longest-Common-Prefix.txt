@@ -1,0 +1,20 @@
+#intution
+take the first string and compare it with others
+
+//solution
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& A) {
+        string s;
+        for(int i=0;i<A[0].size();i++){
+            char c = A[0][i];
+            for(int j=1;j<A.size();j++){
+                if(c != A[j][i]){
+                    return s;
+                }
+            }
+            s += c;
+        }
+        return s;        
+    }
+};
