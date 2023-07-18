@@ -1,0 +1,76 @@
+//solution
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+private:
+    ListNode* revList(ListNode *head){
+        if(head == NULL || head->next == NULL) return head;
+
+        ListNode *prev = NULL, *cur = head, *nxt = head;
+        while(cur!=NULL){
+            nxt = cur->next;
+            cur->next = prev;
+            prev = cur;
+            cur = nxt;
+        }
+        return prev; 
+    }
+
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        ListNode *h1 = revList(l1);
+        ListNode *h2 = revList(l2);
+
+        int rem = 0;
+        ListNode *newHead = new ListNode(-1);
+        ListNode *ptr = newHead;
+
+        while(h1!=NULL && h2!=NULL){
+            int sum = h1->val + h2->val + rem;
+
+            ListNode *tmp = new ListNode(sum%10);
+            ptr->next = tmp;
+            ptr = ptr->next;
+
+            rem = sum/10;
+            h1 = h1->next;
+            h2 = h2->next;
+        }
+
+        while(h1!=NULL){
+            int sum = h1->val+rem;
+            ListNode *tmp = new ListNode(sum%10);
+            ptr->next = tmp;
+            ptr = ptr->next;
+            h1 = h1->next;
+            rem = sum/10;
+        }
+        while(h2!=NULL){
+            int sum = h2->val+rem;
+            ListNode *tmp = new ListNode(sum%10);
+            ptr->next = tmp;
+            ptr = ptr->next;
+            h2 = h2->next;
+            rem = sum/10;
+        }
+
+        if(rem>0){
+            ListNode *tmp = new ListNode(rem);
+            ptr->next = tmp;
+            ptr = ptr->next;
+            rem = rem/10;
+        }
+
+        newHead->next = revList(newHead->next);
+
+        return newHead->next;
+    }
+};
